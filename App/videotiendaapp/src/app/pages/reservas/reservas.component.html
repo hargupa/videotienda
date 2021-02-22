@@ -1,0 +1,118 @@
+<h1 style="text-align: center;">Reservas</h1>
+<div class="row">
+
+    <div class="col-8 mx-auto">
+        <div style="display:flex">
+            <div style="width:60px;"></div>
+        </div>
+    
+        <div id="crearTabla">
+            <table class="table" id="tablaPeliculas">
+                <thead>
+                    <th>ID Reserva</th>
+                    <th>Id Pelicula</th>
+                    <th>Fecha Prestamo</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let reserva of reservas;let i = index">
+                        <td>{{reserva.idreserva}}</td>
+                        <td>{{reserva.idpelicula}}</td>
+                        <td>{{reserva.fecha}}</td>
+                        <td>
+                            <button class="btn btn-warning" (click)="eliminarClick(i)"  title="Devolver Pelicula" data-toggle="modal" data-target="#deleteModal" ><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+  <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-tittle">Devolver Pelicula</div>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+                <div class="modal-body">
+                    <div class="text-warning">Esta seguro de Devolver esta Reserva?</div>
+                    <div class="form-group row">
+                        <label for="txtDeleteProjectID" class="col-sm-4 col-form-label">Id Reserva</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="IdReserva" name="IdReserva" aria-describedby="emailHelp" [(ngModel)]="eliminarReserva.IdReserva" disabled>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-success" data-dismiss="modal" (click)="confirmaEliminar()">Devolver</button>
+                </div>
+
+        </div>
+    </div>
+</div>
+       
+
+<div class="modal" tabindex="-1" id="editModal" tabindex="-1" arial-labelledby="exampleModalLabel" arial-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modificar Pelicula</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="exampleInputEmail1" class="form-label">Id Pelicula</label>
+                    <input type="text" class="form-control" id="IdPelicula" aria-describedby="emailHelp" name="IdPelicula" [(ngModel)]="editarPelicula.IdPelicula" disabled>
+                    
+                </div>
+                <div class="form-group row">
+                  <label for="exampleInputEmail1" class="form-label">Titulo Pelicula</label>
+                  <input type="text" class="form-control" id="Titulo" name = "Titulo" aria-describedby="emailHelp" [(ngModel)]="editarPelicula.Titulo">
+                  
+                </div>
+                <div class="form-group row">
+                    <label for="exampleInputEmail1" class="form-label">Descripcion</label>
+                    <textarea class="form-control"[(ngModel)]="editarPelicula.Descripcion" id="Descripcion" name="Descripcion"></textarea>
+                    
+                </div>
+                <div class="form-group row">
+                    <label for="exampleInputEmail1" class="form-label">Actores</label>
+                    <textarea class="form-control" [(ngModel)]="editarPelicula.Actores" id="Actores" name="Actores"></textarea>
+                    
+                </div>
+                <div class="form-group row">
+                  <label for="exampleInputEmail1" class="form-label">Director</label>
+                  <input type="text" class="form-control" id="Director" name = "Director" aria-describedby="emailHelp" [(ngModel)]="editarPelicula.Director">
+              </div>            
+                <div class="form-group row">
+                    <label for="exampleInputEmail1" class="form-label">Costo Alquiler</label>
+                    <input type="text" class="form-control" id="CostoAlquiler" name="CostoAlquiler" aria-describedby="emailHelp" [(ngModel)]="editarPelicula.CostoAlquiler" id="CostoAlquiler" name="CostoAlquiler">
+                    
+                  </div>
+                  <div class="form-group row">
+                    <label for="exampleInputEmail1" class="form-label">Inventario</label>
+                    <input type="text" class="form-control" id="Cantidad" name="Cantidad" aria-describedby="emailHelp" [(ngModel)]="editarPelicula.Cantidad" id="Cantidad" name="Cantidad">
+                    
+                  </div>              
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+            <button class="btn btn-success" data-dismiss="modal" (click)="actualizar(editarPelicula.IdPelicula)">Actualizar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+

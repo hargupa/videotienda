@@ -1,0 +1,59 @@
+<div class="text-center" style="margin:50px auto -40px auto">
+  <h1>Video Tienda</h1>
+</div>
+<div class="card card-login">
+    <div class="card-body">
+        <form>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" [(ngModel)]="email">
+              
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="contrasena" name="contrasena" [(ngModel)]="contrasena">
+            </div>
+            <div class="mb-3 ">
+              <a class="nav-link active" aria-current="page" href="#" data-toggle="modal" data-target="#nuevoModal">Registrarme</a>
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="logeo()">Enviar</button>
+        </form>
+
+    </div>
+</div>
+
+
+<div class="modal" tabindex="-1" id="nuevoModal" tabindex="-1" arial-labelledby="exampleModalLabel" arial-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Registro Usuario</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Nombres</label>
+                <input type="text" class="form-control" id="Nombres" name = "Nombres" aria-describedby="emailHelp" [(ngModel)]="nuevoUsuario.Nombres">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email</label>
+                <input type="text" class="form-control" id="Email" name = "Email" aria-describedby="emailHelp" [(ngModel)]="nuevoUsuario.Email">
+                
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Contraseña</label>
+                <input type="Password" class="form-control" id="Contrasena" name = "Contrasena" aria-describedby="emailHelp" [(ngModel)]="nuevoUsuario.Contrasena">
+              </div>            
+              
+            </div>
+            <div class="modal-footer">
+              <input style="visibility:hidden" type="email" class="form-control" id="Perfil" name="Perfil" aria-describedby="emailHelp" [(ngModel)]="nuevoUsuario.Perfil">
+              <button class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+              <button class="btn btn-success" data-dismiss="modal" (click)="GuardarClick()">Guardar</button>
+            </div>
+    </div>
+  </div>
+</div>
+
+
+

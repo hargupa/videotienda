@@ -1,0 +1,166 @@
+<h1 style="text-align: center;">Usuarios</h1>
+<div class="row">
+
+    <div class="col-8 mx-auto">
+        <div style="display:flex">
+            <button class="btn btn-success"  data-toggle="modal" data-target="#nuevoModal"  title="Crear Nueva Pelicula" *ngIf="administrador"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <div style="width:60px;"></div>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" id="textoBuscar" name="textoBuscar" placeholder="Buscar Pelicula" aria-label="Search" [(ngModel)]="textoBuscar">
+                <button class="btn btn-outline-success" type="submit"  (click)="buscarUsuario()">Buscar</button>
+                <button class="btn btn-outline-success" type="submit"  (click)="refrescar()">Limpiar</button>
+              </form>    
+        </div>
+    
+        <div id="crearTabla">
+            <table class="table" id="tablaUsuarios">
+                <thead>
+                    <th>ID Usuario</th>
+                    <th>Nombres</th>
+                    <th>Perfil</th>
+                    <th>email</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let usuario of usuarios;let i = index">
+                        <td>{{usuario.idusuario}}</td>
+                        <td>{{usuario.nombres}}</td>
+                        <td>{{usuario.perfil}}</td>
+                        <td>{{usuario.email}}</td>
+                        <td>
+                            <button class="btn btn-primary" (click)="EditarClick(i)" data-toggle="modal" data-target="#editModal" title="Editar Pelicula" *ngIf="administrador"><i class="fa fa-pencil" aria-hidden="true"></i></button>&nbsp;
+                            <button class="btn btn-warning" (click)="eliminarClick(i)" data-toggle="modal" data-target="#deleteModal" *ngIf="administrador"><i class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar Usuario"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" tabindex="-1" id="editModal" tabindex="-1" arial-labelledby="exampleModalLabel" arial-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modificar Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="exampleInputEmail1" class="form-label">Id Usuario</label>
+                    <input type="text" class="form-control" id="IdUsuario" aria-describedby="emailHelp" name="IdUsuario" [(ngModel)]="editarUsuario.IdUsuario" disabled>
+                    
+                </div>
+                <div class="form-group row">
+                  <label for="exampleInputEmail1" class="form-label">Nombres</label>
+                  <input type="text" class="form-control" id="Nombres" name = "Nombres" aria-describedby="emailHelp" [(ngModel)]="editarUsuario.Nombres">
+                  
+                </div>
+                <div class="form-group row">
+                    <label for="exampleInputEmail1" class="form-label">Perfil</label>
+                    <select class="drpSearchBy" id="drpSearchBy" name="SearchBy" [(ngModel)]="editarUsuario.Perfil">
+                        <option value="Administrador">Administrador</option>
+                        <option value="Usuario">Usuario</option>
+                    </select>
+                    
+                </div>
+                <div class="form-group row">
+                    <label for="exampleInputEmail1" class="form-label">Email</label>
+                    <textarea class="form-control" [(ngModel)]="editarUsuario.Email" id="Email" name="Email"></textarea>
+                    
+                </div>
+                <div class="form-group row">
+                  <label for="exampleInputEmail1" class="form-label">Contraseña</label>
+                  <input type="Password" class="form-control" id="Contrasena" name = "Contrasena" aria-describedby="emailHelp" [(ngModel)]="editarUsuario.Contrasena">
+              </div>            
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+            <button class="btn btn-success" data-dismiss="modal" (click)="actualizar(editarUsuario.IdUsuario)">Actualizar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-tittle">Eliminar Usuario</div>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+                <div class="modal-body">
+                    <div class="text-warning">Esta seguro de Eliminar este Usuario?</div>
+                    <div class="form-group row">
+                        <label for="txtDeleteUsuario" class="col-sm-4 col-form-label">Nombre Usuario</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="Nombres" name="Nombres" aria-describedby="emailHelp" [(ngModel)]="eliminarUsuario.Nombres"  disabled>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-success" data-dismiss="modal" (click)="confirmaEliminar()">Eliminar</button>
+                </div>
+
+        </div>
+    </div>
+</div>
+       
+
+
+
+
+
+<div class="modal" tabindex="-1" id="nuevoModal" tabindex="-1" arial-labelledby="exampleModalLabel" arial-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nuevo Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Nombres</label>
+                  <input type="text" class="form-control" id="Nombres" name = "Nombres" aria-describedby="emailHelp" [(ngModel)]="nuevoUsuario.Nombres">
+                  
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Perfil</label>
+                    <select class="form-control" id="Perfil" name="Perfil" [(ngModel)]="nuevoUsuario.Perfil">
+                        <option value="Administrador">Administrador</option>
+                        <option value="Usuario">Usuario</option>
+                    </select>
+                    
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="Email" name = "Email" aria-describedby="emailHelp" [(ngModel)]="nuevoUsuario.Email">
+                    
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Contraseña</label>
+                  <input type="Password" class="form-control" id="Contrasena" name = "Contrasena" aria-describedby="emailHelp" [(ngModel)]="nuevoUsuario.Contrasena">
+              </div>            
+            
+            </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+            <button class="btn btn-success" data-dismiss="modal" (click)="GuardarClick()">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
